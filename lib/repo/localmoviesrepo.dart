@@ -10,16 +10,19 @@ class LocalMoviesRepo implements MoviesRepo {
 
   LocalMoviesRepo({required this.objectBoxDb});
 
+  @override
   Future putMovie(Movie movie) async {
     final Box<Movie> box = await objectBoxDb.movieBox;
     await box.putAsync(movie);
   }
 
+  @override
   Future removeMovie(int movieId) async {
     final Box<Movie> box = await objectBoxDb.movieBox;
     await box.removeAsync(movieId);
   }
 
+  @override
   Future<List<Movie>> getMovies(int page, {String? search}) async {
     final Box<Movie> box = await objectBoxDb.movieBox;
     final Query<Movie> query =
