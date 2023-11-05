@@ -14,15 +14,14 @@ class LocalMoviesRepo implements MoviesRepo {
     await objectBoxDb.store;
   }
 
-  Future<List<Movie>> getMovies(int page) async {
-    final Store? store = await objectBoxDb.store;
+  Future<List<Movie>> getMovies(int page, {String? search}) async {
+    final Box<Movie>? box = (await objectBoxDb.store)?.box<Movie>();
     //nado error
-    if (store == null) return List.empty();
-    final Query<Movie> query = store.box<Movie>().query().build()
-      ..offset = 10
-      ..limit = 5;
-      return await query.findAsync();
+    if (box == null) return List.empty();
+    final Query<Movie> query =
+        box.query(search != null ? Movie_.name.contains(search) : null).build()
+          ..offset = page - 1
+          ..limit = defaultpagesize;
+    return await query.findAsync();
   }
-
-  
 }
