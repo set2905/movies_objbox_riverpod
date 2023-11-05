@@ -1,0 +1,71 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6944964208642444730",
+      "lastPropertyId": "2:1841581879268678529",
+      "name": "Country",
+      "properties": [
+        {
+          "id": "1:2224742954741648961",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1841581879268678529",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:9046719617126596496",
+      "lastPropertyId": "4:5825336035953281212",
+      "name": "Movie",
+      "properties": [
+        {
+          "id": "1:8484685509720647227",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7781226155153663747",
+          "name": "name",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "2:4415638710340172093"
+        },
+        {
+          "id": "3:4351648966524044218",
+          "name": "year",
+          "type": 6
+        },
+        {
+          "id": "4:5825336035953281212",
+          "name": "countryId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "1:1251133321504499843",
+          "relationTarget": "Country"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:9046719617126596496",
+  "lastIndexId": "2:4415638710340172093",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
