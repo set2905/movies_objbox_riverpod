@@ -7,6 +7,7 @@ import 'package:movies_objbox_riverpod/utils/dependencyinjection.dart';
 import 'package:riverpod_infinite_scroll/riverpod_infinite_scroll.dart';
 
 import '../../domain/models/movie.dart';
+import '../routing/gorouterbuilder.dart';
 
 class MoviesPage extends StatelessWidget {
   MoviesPage({super.key});
@@ -23,6 +24,7 @@ class MoviesPage extends StatelessWidget {
         itemBuilder: (context, item, index) => ListTile(
           title: Text(item.name),
           subtitle: Text(item.year.toString()),
+          onTap: () => MovieLandingPageRoute(id: item.id).go(context),
         ),
         pagedBuilder: (controller, builder) => PagedListView(
             pagingController: controller, builderDelegate: builder),

@@ -7,7 +7,8 @@ import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviessta
 import 'package:movies_objbox_riverpod/repo/interfaces/moviesrepo.dart';
 import 'package:movies_objbox_riverpod/repo/localmoviesrepo.dart';
 
-import '../presentation/routenotifier.dart';
+import '../presentation/routing/gorouterbuilder.dart';
+
 
 GetIt locator = GetIt.instance;
 
@@ -21,9 +22,7 @@ Future<void> setupLocator() async {
       StateNotifierProvider<MoviesNotifier, MoviesState>(
           (_) => MoviesNotifier()));
 
-  final router = RouteNotifier();
   locator.registerSingleton<GoRouter>(GoRouter(
-    refreshListenable: router,
-    routes: router.routes,
+    routes: $appRoutes,
   ));
 }

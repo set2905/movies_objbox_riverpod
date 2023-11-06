@@ -33,4 +33,10 @@ class LocalMoviesRepo implements MoviesRepo {
     query.close();
     return result;
   }
+  
+  @override
+  Future<Movie?> getById(int id) async {
+    final Box<Movie> box = await objectBoxDb.movieBox;
+    return await box.getAsync(id);
+  }
 }
