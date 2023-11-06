@@ -10,7 +10,7 @@ class RouteNotifier extends ChangeNotifier {
       GoRoute(
         name: Strings.moviesNameRoute,
         path: Strings.moviesRoute,
-        builder: (context, state) => const MoviesPage()
+        builder: (context, state) => MoviesPage()
       ),
     ];
   }
