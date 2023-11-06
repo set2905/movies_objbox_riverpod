@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:movies_objbox_riverpod/constants/strings.dart';
-import 'package:movies_objbox_riverpod/presentation/controllers/moviesnotifier.dart';
+import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesnotifier.dart';
+import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesstate.dart';
 import 'package:movies_objbox_riverpod/utils/dependencyinjection.dart';
 import 'package:riverpod_infinite_scroll/riverpod_infinite_scroll.dart';
 
 import '../../domain/models/movie.dart';
-import '../controllers/moviesstate.dart';
 
 class MoviesPage extends StatelessWidget {
   MoviesPage({super.key});
