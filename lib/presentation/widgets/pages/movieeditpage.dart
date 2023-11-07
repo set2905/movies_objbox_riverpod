@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditpagecontroller.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditstate.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesnotifier.dart';
@@ -58,6 +59,8 @@ class MovieEditPage extends ConsumerWidget {
                             .read(movieEditPageControllerProvider(id).notifier)
                             .submit();
                         await ref.read(moviesController.notifier).refresh();
+                        GoRouter router=locator();
+                        router.go("/");
                       },
                     ),
                   ],

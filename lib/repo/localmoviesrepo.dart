@@ -25,10 +25,12 @@ class LocalMoviesRepo implements MoviesRepo {
   @override
   Future<List<Movie>> getMovies(int page, {String? search}) async {
     final Box<Movie> box = await objectBoxDb.movieBox;
-    final Query<Movie> query =
-        box.query(search != null ? Movie_.name.contains(search) : null).build()
-          ..offset = page - 1
-          ..limit = defaultpagesize;
+    final Query<Movie> query = box
+        .query(search != null ? Movie_.name.contains(search) : null)
+        .order(Movie_.id, flags: Order.descending)
+        .build()
+      ..offset = (page - 1) * defaultpagesize
+      ..limit = defaultpagesize;
     final result = await query.findAsync();
     query.close();
     return result;

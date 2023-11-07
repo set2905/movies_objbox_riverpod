@@ -19,13 +19,17 @@ class MoviesNotifier extends StateNotifier<MoviesState>
       }
       final MoviesRepo moviesRepo = locator();
 
-      List<Movie> movies =
+      List<Movie> loadedmovies =
           await moviesRepo.getMovies(page, search: state.search);
 
+      int currentRecordsLength =
+          state.records == null ? 0 : state.records!.length;
+      int? nextPageKey = loadedmovies.length < limit
+          ? null
+          : (currentRecordsLength ~/ limit) + 1;
       state = state.copyWith(
-          records: [...(state.records ?? []), ...movies],
-          nextPageKey:
-              movies.length < limit ? null : movies[movies.length - 1].id,
+          records: [...(state.records ?? []), ...loadedmovies],
+          nextPageKey: nextPageKey,
           previousPageKeys: {...state.previousPageKeys, page}.toList());
     } catch (e) {
       state = state.copyWith(error: e.toString());
