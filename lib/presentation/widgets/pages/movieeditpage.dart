@@ -63,6 +63,18 @@ class MovieEditPage extends ConsumerWidget {
                         GoRouter router = locator()..go("/");
                       },
                     ),
+                    FormButton(
+                      'Delete',
+                      enabled: state.value!.movie.id != 0,
+                      onPressed: () async {
+                        await ref
+                            .read(movieEditPageControllerProvider(id).notifier)
+                            .delete();
+                        await ref.read(moviesController.notifier).refresh();
+                        // ignore: unused_local_variable
+                        GoRouter router = locator()..go("/");
+                      },
+                    ),
                   ],
                 ),
               ));

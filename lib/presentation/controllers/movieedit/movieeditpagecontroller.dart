@@ -62,4 +62,15 @@ class MovieEditPageController extends _$MovieEditPageController {
     stateValue.movie.id = edited.id;
     state = AsyncValue.data(state.value!.copyWith(movie: edited));
   }
+
+  Future<void> delete() async {
+    if (state.isLoading ||
+        state.value == null ||
+        state.value!.status != FormzSubmissionStatus.success) return;
+    state = const AsyncLoading();
+    MoviesRepo moviesRepo = locator();
+    EditMovieState stateValue = state.value!;
+    if (stateValue.movie.id == 0) return;
+    moviesRepo.removeMovie(stateValue.movie.id);
+  }
 }
