@@ -8,11 +8,8 @@ import '../widgets/movielandingpage.dart';
 part 'gorouterbuilder.g.dart';
 
 @TypedGoRoute<MoviesPageRoute>(path: '/', routes: [
-  TypedGoRoute<MovieLandingPageRoute>(path: 'movie/:id', routes: [
-    TypedGoRoute<MovieEditPageRoute>(
-      path: 'edit',
-    )
-  ])
+  TypedGoRoute<MovieLandingPageRoute>(path: 'movie/:id'),
+  TypedGoRoute<MovieEditPageRoute>(path: 'editmovie/:id')
 ])
 @immutable
 class MoviesPageRoute extends GoRouteData {
