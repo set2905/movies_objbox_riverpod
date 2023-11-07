@@ -17,12 +17,10 @@ RouteBase get $moviesPageRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'movie/:id',
           factory: $MovieLandingPageRouteExtension._fromState,
-          routes: [
-            GoRouteData.$route(
-              path: 'edit',
-              factory: $MovieEditPageRouteExtension._fromState,
-            ),
-          ],
+        ),
+        GoRouteData.$route(
+          path: 'editmovie/:id',
+          factory: $MovieEditPageRouteExtension._fromState,
         ),
       ],
     );
@@ -71,7 +69,7 @@ extension $MovieEditPageRouteExtension on MovieEditPageRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/movie/${Uri.encodeComponent(id.toString())}/edit',
+        '/editmovie/${Uri.encodeComponent(id.toString())}',
       );
 
   void go(BuildContext context) => context.go(location);

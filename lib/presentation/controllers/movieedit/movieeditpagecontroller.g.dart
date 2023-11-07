@@ -7,7 +7,7 @@ part of 'movieeditpagecontroller.dart';
 // **************************************************************************
 
 String _$movieEditPageControllerHash() =>
-    r'5af176b3f8306ac871a428733e99a382ccc049e7';
+    r'9043cc203affba971eb9d05cc02193870715843f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,10 +31,10 @@ class _SystemHash {
 }
 
 abstract class _$MovieEditPageController
-    extends BuildlessAutoDisposeAsyncNotifier<Movie> {
+    extends BuildlessAutoDisposeAsyncNotifier<EditMovieState> {
   late final int id;
 
-  FutureOr<Movie> build(
+  FutureOr<EditMovieState> build(
     int id,
   );
 }
@@ -44,7 +44,7 @@ abstract class _$MovieEditPageController
 const movieEditPageControllerProvider = MovieEditPageControllerFamily();
 
 /// See also [MovieEditPageController].
-class MovieEditPageControllerFamily extends Family<AsyncValue<Movie>> {
+class MovieEditPageControllerFamily extends Family<AsyncValue<EditMovieState>> {
   /// See also [MovieEditPageController].
   const MovieEditPageControllerFamily();
 
@@ -84,7 +84,7 @@ class MovieEditPageControllerFamily extends Family<AsyncValue<Movie>> {
 /// See also [MovieEditPageController].
 class MovieEditPageControllerProvider
     extends AutoDisposeAsyncNotifierProviderImpl<MovieEditPageController,
-        Movie> {
+        EditMovieState> {
   /// See also [MovieEditPageController].
   MovieEditPageControllerProvider(
     int id,
@@ -115,7 +115,7 @@ class MovieEditPageControllerProvider
   final int id;
 
   @override
-  FutureOr<Movie> runNotifierBuild(
+  FutureOr<EditMovieState> runNotifierBuild(
     covariant MovieEditPageController notifier,
   ) {
     return notifier.build(
@@ -140,8 +140,8 @@ class MovieEditPageControllerProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<MovieEditPageController, Movie>
-      createElement() {
+  AutoDisposeAsyncNotifierProviderElement<MovieEditPageController,
+      EditMovieState> createElement() {
     return _MovieEditPageControllerProviderElement(this);
   }
 
@@ -159,14 +159,15 @@ class MovieEditPageControllerProvider
   }
 }
 
-mixin MovieEditPageControllerRef on AutoDisposeAsyncNotifierProviderRef<Movie> {
+mixin MovieEditPageControllerRef
+    on AutoDisposeAsyncNotifierProviderRef<EditMovieState> {
   /// The parameter `id` of this provider.
   int get id;
 }
 
 class _MovieEditPageControllerProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<MovieEditPageController,
-        Movie> with MovieEditPageControllerRef {
+        EditMovieState> with MovieEditPageControllerRef {
   _MovieEditPageControllerProviderElement(super.provider);
 
   @override
