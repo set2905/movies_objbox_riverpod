@@ -59,8 +59,8 @@ class MovieEditPage extends ConsumerWidget {
                             .read(movieEditPageControllerProvider(id).notifier)
                             .submit();
                         await ref.read(moviesController.notifier).refresh();
-                        GoRouter router=locator();
-                        router.go("/");
+                        // ignore: unused_local_variable
+                        GoRouter router = locator()..go("/");
                       },
                     ),
                   ],

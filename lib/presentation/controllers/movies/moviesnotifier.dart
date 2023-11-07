@@ -18,19 +18,13 @@ class MoviesNotifier extends StateNotifier<MoviesState>
         return state.records;
       }
       final MoviesRepo moviesRepo = locator();
-
       List<Movie> loadedmovies =
           await moviesRepo.getMovies(page, search: state.search);
-
-      int currentRecordsLength =
-          state.records == null ? 0 : state.records!.length;
-      int? nextPageKey = loadedmovies.length < limit
-          ? null
-          : (currentRecordsLength ~/ limit) + 1;
+      var previousPageKeys = List<int>.generate(page, (i) => i + 1);
       state = state.copyWith(
           records: [...(state.records ?? []), ...loadedmovies],
-          nextPageKey: nextPageKey,
-          previousPageKeys: {...state.previousPageKeys, page}.toList());
+          nextPageKey: _calculateNextPageKey(loadedmovies.length, limit),
+          previousPageKeys: previousPageKeys);
     } catch (e) {
       state = state.copyWith(error: e.toString());
     }
@@ -42,5 +36,17 @@ class MoviesNotifier extends StateNotifier<MoviesState>
 
   Future<void> refresh() async {
     state = const MoviesState();
+  }
+
+  Future<void> setSearch(String search) async {
+    state = MoviesState(search: search);
+  }
+
+  int? _calculateNextPageKey(int loadedLength, int limit) {
+    int currentRecordsLength =
+        state.records == null ? 0 : state.records!.length;
+    int? nextPageKey =
+        loadedLength < limit ? null : (currentRecordsLength ~/ limit) + 1;
+    return nextPageKey;
   }
 }

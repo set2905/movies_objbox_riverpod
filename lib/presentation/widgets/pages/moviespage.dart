@@ -9,18 +9,25 @@ import 'package:movies_objbox_riverpod/repo/localmoviesrepo.dart';
 import 'package:movies_objbox_riverpod/utils/dependencyinjection.dart';
 import 'package:riverpod_infinite_scroll/riverpod_infinite_scroll.dart';
 
-class MoviesPage extends StatelessWidget {
+class MoviesPage extends ConsumerWidget {
   MoviesPage({super.key});
   final StateNotifierProvider<MoviesNotifier, MoviesState> moviesController =
       locator();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            SearchBar(
+              leading: const Icon(Icons.search),
+              hintText: "Enter search query",
+              onSubmitted: (value) {
+                ref.read(moviesController.notifier).setSearch(value);
+              },
+            ),
             TextButton.icon(
               onPressed: () => const MovieEditPageRoute(id: 0).go(context),
               icon: const Icon(Icons.add),
