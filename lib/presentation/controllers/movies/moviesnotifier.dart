@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movies_objbox_riverpod/domain/models/movie.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesstate.dart';
@@ -29,12 +30,13 @@ class MoviesNotifier extends StateNotifier<MoviesState>
     } catch (e) {
       state = state.copyWith(error: e.toString());
     }
+    if (kDebugMode) {
+      print("page loaded: $page");
+    }
     return null;
   }
 
   Future<void> refresh() async {
-    final MoviesRepo moviesRepo = locator();
-    List<Movie> movies = await moviesRepo.getMovies(1, search: state.search);
-    state = MoviesState(records: movies);
+    state = const MoviesState();
   }
 }
