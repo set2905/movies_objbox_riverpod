@@ -71,6 +71,6 @@ class MovieEditPageController extends _$MovieEditPageController {
     MoviesRepo moviesRepo = locator();
     EditMovieState stateValue = state.value!;
     if (stateValue.movie.id == 0) return;
-    moviesRepo.removeMovie(stateValue.movie.id);
+    await moviesRepo.removeMovie(stateValue.movie.id);
   }
 }
