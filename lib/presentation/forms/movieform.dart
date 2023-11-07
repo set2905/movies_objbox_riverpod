@@ -10,9 +10,9 @@ enum NameValidationError {
   String getMessage() {
     switch (this) {
       case empty:
-        return 'Movie name can\'t be empty';
+        return 'Field can not be empty';
         case tooLong:
-        return 'Movie name is too long';
+        return 'Field value is too long';
 
     }
   }
@@ -21,7 +21,6 @@ enum NameValidationError {
 enum YearValidationError {
   invalid,
   ;
-
   String getMessage() {
     switch (this) {
       case invalid:
@@ -39,7 +38,7 @@ class MovieNameFormz extends FormzInput<String, NameValidationError> {
   @override
   NameValidationError? validator(String value) {
     if (!NonEmptyStringValidator().isValid(value)) return NameValidationError.empty;
-    if (!MaxLengthStringValidator(Movie.maxMovieNameLength).isValid(value)) return NameValidationError.empty;
+    if (!MaxLengthStringValidator(Movie.maxMovieNameLength).isValid(value)) return NameValidationError.tooLong;
     return null;
   }
 }

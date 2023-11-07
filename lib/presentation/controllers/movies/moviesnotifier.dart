@@ -21,7 +21,6 @@ class MoviesNotifier extends StateNotifier<MoviesState>
       List<Movie> movies =
           await moviesRepo.getMovies(page, search: state.search);
 
-
       state = state.copyWith(
           records: [...(state.records ?? []), ...movies],
           nextPageKey:
@@ -31,5 +30,11 @@ class MoviesNotifier extends StateNotifier<MoviesState>
       state = state.copyWith(error: e.toString());
     }
     return null;
+  }
+
+  Future<void> refresh() async {
+    final MoviesRepo moviesRepo = locator();
+    List<Movie> movies = await moviesRepo.getMovies(1, search: state.search);
+    state = MoviesState(records: movies);
   }
 }

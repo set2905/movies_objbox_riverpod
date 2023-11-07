@@ -1,31 +1,5 @@
-
 abstract class StringValidator {
   bool isValid(String value);
-}
-
-class RegexValidator implements StringValidator {
-  RegexValidator({required this.regexSource});
-
-  final String regexSource;
-
-  @override
-  bool isValid(String value) {
-    try {
-      final RegExp regex = RegExp(regexSource);
-      final Iterable<Match> matches = regex.allMatches(value);
-
-      for (final match in matches) {
-        if (match.start == 0 && match.end == value.length) {
-          return true;
-        }
-      }
-
-      return false;
-    } catch (e) {
-      assert(false, e.toString());
-      return true;
-    }
-  }
 }
 
 class NonEmptyStringValidator extends StringValidator {
@@ -59,9 +33,9 @@ class StringYearValidator extends StringValidator {
   StringYearValidator();
   @override
   bool isValid(String value) {
-    if (value.length != 4) return false;
     int? year = int.tryParse(value);
     if (year == null) return false;
+    if (year.toString().length != 4) return false;
     return true;
   }
 }

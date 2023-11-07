@@ -5,6 +5,7 @@ class FormTextField extends ConsumerWidget {
   final String label;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final String? initialValue;
   final String? hintText;
   final String? errorText;
   final Widget? suffixIcon;
@@ -22,6 +23,7 @@ class FormTextField extends ConsumerWidget {
     required this.label,
     this.controller,
     this.focusNode,
+    this.initialValue,
     this.hintText,
     this.errorText,
     this.onChanged,
@@ -55,6 +57,7 @@ class FormTextField extends ConsumerWidget {
             suffixIcon: suffixIcon,
           ),
           obscureText: obscureText,
+          initialValue: initialValue,
           autocorrect: false,
           keyboardType: inputType,
           validator: validator,
