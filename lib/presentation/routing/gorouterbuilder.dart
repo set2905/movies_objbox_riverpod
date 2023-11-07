@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movies_objbox_riverpod/presentation/widgets/movieeditpage.dart';
-import 'package:movies_objbox_riverpod/presentation/widgets/moviespage.dart';
-
-import '../widgets/movielandingpage.dart';
+import 'package:movies_objbox_riverpod/presentation/widgets/pages/movieeditpage.dart';
+import 'package:movies_objbox_riverpod/presentation/widgets/pages/movielandingpage.dart';
+import 'package:movies_objbox_riverpod/presentation/widgets/pages/moviespage.dart';
 
 part 'gorouterbuilder.g.dart';
 
