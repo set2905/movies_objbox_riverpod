@@ -17,16 +17,19 @@ class MoviesState extends PagedState<int, Movie> {
 
   @override
   MoviesState copyWith(
-      {List<Movie>? records,
+      {String? search,
+      List<Movie>? records,
       dynamic error,
       dynamic nextPageKey,
       List<int>? previousPageKeys}) {
+    search = search ?? this.search;
     final sup = super.copyWith(
         records: records,
         error: error,
         nextPageKey: nextPageKey,
         previousPageKeys: previousPageKeys);
     var moviesState = MoviesState(
+        search: search,
         records: sup.records,
         error: sup.error,
         nextPageKey: sup.nextPageKey,
