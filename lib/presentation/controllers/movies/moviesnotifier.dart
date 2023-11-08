@@ -20,7 +20,7 @@ class MoviesNotifier extends StateNotifier<MoviesState>
       final MoviesRepo moviesRepo = locator();
       List<Movie> loadedmovies =
           await moviesRepo.getMovies(page, search: state.search);
-      var previousPageKeys = List<int>.generate(page, (i) => i + 1);
+      List<int>? previousPageKeys = List<int>.generate(page, (i) => i + 1);
       state = state.copyWith(
           records: [...(state.records ?? []), ...loadedmovies],
           nextPageKey: _calculateNextPageKey(loadedmovies.length, limit),

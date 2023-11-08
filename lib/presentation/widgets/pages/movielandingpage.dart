@@ -18,7 +18,7 @@ class MovieLandingPage extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(),
         body: state.isLoading
-            ? const CircularProgressIndicator()
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
                   Text(state.value!.name),

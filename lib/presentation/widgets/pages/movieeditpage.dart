@@ -23,7 +23,7 @@ class MovieEditPage extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(title: const Text('Edit Movie')),
         body: (state.isLoading || !state.hasValue)
-            ? const CircularProgressIndicator()
+            ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -50,17 +50,23 @@ class MovieEditPage extends ConsumerWidget {
                       validator: (value) =>
                           state.value?.yearFormz.error?.getMessage(),
                     ),
-                    DropdownButton<Country>(
-                        value: state.value!.selectedCountry,
-                        items: state.value!.countries.map((countryItem) {
-                          return DropdownMenuItem<Country>(
-                            value: countryItem,
-                            child: Text(countryItem.name),
-                          );
-                        }).toList(),
-                        onChanged: (value) => ref
-                            .read(movieEditPageControllerProvider(id).notifier)
-                            .updateCountry(value)),
+                    DropdownButtonFormField<Country>(
+                      value: state.value!.selectedCountry,
+                      items: state.value!.countries.map((countryItem) {
+                        return DropdownMenuItem<Country>(
+                          value: countryItem,
+                          child: Text(countryItem.name),
+                        );
+                      }).toList(),
+                      onChanged: (value) => ref
+                          .read(movieEditPageControllerProvider(id).notifier)
+                          .updateCountry(value),
+                      isExpanded: true,
+                      decoration: const InputDecoration(
+                          labelText: 'Movie Country',
+                          labelStyle: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ),
                     FormButton(
                       'Save',
                       enabled:
