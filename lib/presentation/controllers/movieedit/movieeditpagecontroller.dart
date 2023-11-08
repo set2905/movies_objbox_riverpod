@@ -72,10 +72,7 @@ class MovieEditPageController extends _$MovieEditPageController {
     stateValue.movie.name = stateValue.nameFormz.value;
     stateValue.movie.year = int.parse(stateValue.yearFormz.value);
     stateValue.movie.country.target = stateValue.selectedCountry;
-    int id = await moviesRepo.putMovie(stateValue.movie);
-    Movie edited = await moviesRepo.getById(id) ?? Movie();
-    stateValue.movie.id = edited.id;
-    state = AsyncValue.data(state.value!.copyWith(movie: edited));
+    await moviesRepo.putMovie(stateValue.movie);
   }
 
   Future<void> delete() async {
