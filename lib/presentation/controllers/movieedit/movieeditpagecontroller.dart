@@ -18,14 +18,16 @@ class MovieEditPageController extends _$MovieEditPageController {
     final CountriesRepo countriesRepo = locator();
     var mov = await moviesRepo.getById(id) ?? Movie();
     var countries = await countriesRepo.getCountries();
+    var nameFormz = MovieNameFormz.dirty(mov.name);
+    var yearFormz = MovieYearFormz.dirty(mov.year.toString());
     var status = Formz.validate([
-      MovieNameFormz.dirty(state.value!.movie.name),
-      MovieYearFormz.dirty(mov.year.toString()),
+      nameFormz,
+      yearFormz,
     ])
         ? FormzSubmissionStatus.success
         : FormzSubmissionStatus.failure;
-
-    return EditMovieState(mov, countries, countries.first, status: status);
+    return EditMovieState(mov, countries, countries.first,
+        nameFormz: nameFormz, yearFormz: yearFormz, status: status);
   }
 
   FormzSubmissionStatus validate(
@@ -69,6 +71,7 @@ class MovieEditPageController extends _$MovieEditPageController {
     EditMovieState stateValue = state.value!;
     stateValue.movie.name = stateValue.nameFormz.value;
     stateValue.movie.year = int.parse(stateValue.yearFormz.value);
+    stateValue.movie.country.target = stateValue.selectedCountry;
     int id = await moviesRepo.putMovie(stateValue.movie);
     Movie edited = await moviesRepo.getById(id) ?? Movie();
     stateValue.movie.id = edited.id;
