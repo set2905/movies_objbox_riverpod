@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EditMovieState {
   Movie get movie => throw _privateConstructorUsedError;
+  List<Country> get countries => throw _privateConstructorUsedError;
+  Country? get selectedCountry => throw _privateConstructorUsedError;
   MovieNameFormz get nameFormz => throw _privateConstructorUsedError;
   MovieYearFormz get yearFormz => throw _privateConstructorUsedError;
   FormzSubmissionStatus get status => throw _privateConstructorUsedError;
@@ -34,6 +36,8 @@ abstract class $EditMovieStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Movie movie,
+      List<Country> countries,
+      Country? selectedCountry,
       MovieNameFormz nameFormz,
       MovieYearFormz yearFormz,
       FormzSubmissionStatus status});
@@ -53,6 +57,8 @@ class _$EditMovieStateCopyWithImpl<$Res, $Val extends EditMovieState>
   @override
   $Res call({
     Object? movie = null,
+    Object? countries = null,
+    Object? selectedCountry = freezed,
     Object? nameFormz = null,
     Object? yearFormz = null,
     Object? status = null,
@@ -62,6 +68,14 @@ class _$EditMovieStateCopyWithImpl<$Res, $Val extends EditMovieState>
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
+      countries: null == countries
+          ? _value.countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<Country>,
+      selectedCountry: freezed == selectedCountry
+          ? _value.selectedCountry
+          : selectedCountry // ignore: cast_nullable_to_non_nullable
+              as Country?,
       nameFormz: null == nameFormz
           ? _value.nameFormz
           : nameFormz // ignore: cast_nullable_to_non_nullable
@@ -88,6 +102,8 @@ abstract class _$$EditMovieStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Movie movie,
+      List<Country> countries,
+      Country? selectedCountry,
       MovieNameFormz nameFormz,
       MovieYearFormz yearFormz,
       FormzSubmissionStatus status});
@@ -105,6 +121,8 @@ class __$$EditMovieStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? movie = null,
+    Object? countries = null,
+    Object? selectedCountry = freezed,
     Object? nameFormz = null,
     Object? yearFormz = null,
     Object? status = null,
@@ -114,6 +132,14 @@ class __$$EditMovieStateImplCopyWithImpl<$Res>
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
+      null == countries
+          ? _value._countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<Country>,
+      freezed == selectedCountry
+          ? _value.selectedCountry
+          : selectedCountry // ignore: cast_nullable_to_non_nullable
+              as Country?,
       nameFormz: null == nameFormz
           ? _value.nameFormz
           : nameFormz // ignore: cast_nullable_to_non_nullable
@@ -133,13 +159,25 @@ class __$$EditMovieStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$EditMovieStateImpl implements _EditMovieState {
-  const _$EditMovieStateImpl(this.movie,
+  const _$EditMovieStateImpl(
+      this.movie, final List<Country> countries, this.selectedCountry,
       {this.nameFormz = const MovieNameFormz.pure(),
       this.yearFormz = const MovieYearFormz.pure(),
-      this.status = FormzSubmissionStatus.initial});
+      this.status = FormzSubmissionStatus.initial})
+      : _countries = countries;
 
   @override
   final Movie movie;
+  final List<Country> _countries;
+  @override
+  List<Country> get countries {
+    if (_countries is EqualUnmodifiableListView) return _countries;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_countries);
+  }
+
+  @override
+  final Country? selectedCountry;
   @override
   @JsonKey()
   final MovieNameFormz nameFormz;
@@ -152,7 +190,7 @@ class _$EditMovieStateImpl implements _EditMovieState {
 
   @override
   String toString() {
-    return 'EditMovieState(movie: $movie, nameFormz: $nameFormz, yearFormz: $yearFormz, status: $status)';
+    return 'EditMovieState(movie: $movie, countries: $countries, selectedCountry: $selectedCountry, nameFormz: $nameFormz, yearFormz: $yearFormz, status: $status)';
   }
 
   @override
@@ -161,6 +199,10 @@ class _$EditMovieStateImpl implements _EditMovieState {
         (other.runtimeType == runtimeType &&
             other is _$EditMovieStateImpl &&
             (identical(other.movie, movie) || other.movie == movie) &&
+            const DeepCollectionEquality()
+                .equals(other._countries, _countries) &&
+            (identical(other.selectedCountry, selectedCountry) ||
+                other.selectedCountry == selectedCountry) &&
             (identical(other.nameFormz, nameFormz) ||
                 other.nameFormz == nameFormz) &&
             (identical(other.yearFormz, yearFormz) ||
@@ -169,8 +211,14 @@ class _$EditMovieStateImpl implements _EditMovieState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, movie, nameFormz, yearFormz, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      movie,
+      const DeepCollectionEquality().hash(_countries),
+      selectedCountry,
+      nameFormz,
+      yearFormz,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -182,12 +230,17 @@ class _$EditMovieStateImpl implements _EditMovieState {
 
 abstract class _EditMovieState implements EditMovieState {
   const factory _EditMovieState(final Movie movie,
+      final List<Country> countries, final Country? selectedCountry,
       {final MovieNameFormz nameFormz,
       final MovieYearFormz yearFormz,
       final FormzSubmissionStatus status}) = _$EditMovieStateImpl;
 
   @override
   Movie get movie;
+  @override
+  List<Country> get countries;
+  @override
+  Country? get selectedCountry;
   @override
   MovieNameFormz get nameFormz;
   @override

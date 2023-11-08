@@ -7,7 +7,7 @@ part of 'movieeditpagecontroller.dart';
 // **************************************************************************
 
 String _$movieEditPageControllerHash() =>
-    r'9043cc203affba971eb9d05cc02193870715843f';
+    r'd684ea541d5871f62ac4f8e2d8107642f9da47dd';
 
 /// Copied from Dart SDK
 class _SystemHash {

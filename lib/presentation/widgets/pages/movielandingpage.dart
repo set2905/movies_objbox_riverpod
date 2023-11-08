@@ -11,6 +11,10 @@ class MovieLandingPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<Movie> state =
         ref.watch(movieLandingPageControllerProvider(id));
+    String countryName = "undefined country";
+    if (state.value != null && state.value!.country.target != null) {
+      countryName = state.value!.country.target!.name;
+    }
     return Scaffold(
         appBar: AppBar(),
         body: state.isLoading
@@ -18,6 +22,7 @@ class MovieLandingPage extends ConsumerWidget {
             : Column(
                 children: [
                   Text(state.value!.name),
+                  Text(countryName),
                   IconButton(
                       onPressed: () =>
                           MovieEditPageRoute(id: state.value!.id).go(context),

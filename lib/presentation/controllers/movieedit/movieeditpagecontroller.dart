@@ -1,7 +1,9 @@
 import 'package:formz/formz.dart';
+import 'package:movies_objbox_riverpod/domain/models/country.dart';
 import 'package:movies_objbox_riverpod/domain/models/movie.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditstate.dart';
 import 'package:movies_objbox_riverpod/presentation/forms/movieform.dart';
+import 'package:movies_objbox_riverpod/repo/interfaces/countriesrepo.dart';
 import 'package:movies_objbox_riverpod/repo/interfaces/moviesrepo.dart';
 import 'package:movies_objbox_riverpod/utils/dependencyinjection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,15 +15,17 @@ class MovieEditPageController extends _$MovieEditPageController {
   @override
   Future<EditMovieState> build(int id) async {
     final MoviesRepo moviesRepo = locator();
+    final CountriesRepo countriesRepo = locator();
     var mov = await moviesRepo.getById(id) ?? Movie();
+    var countries = await countriesRepo.getCountries();
     var status = Formz.validate([
-      MovieNameFormz.dirty(mov.name),
+      MovieNameFormz.dirty(state.value!.movie.name),
       MovieYearFormz.dirty(mov.year.toString()),
     ])
         ? FormzSubmissionStatus.success
         : FormzSubmissionStatus.failure;
 
-    return EditMovieState(mov, status: status);
+    return EditMovieState(mov, countries, countries.first, status: status);
   }
 
   FormzSubmissionStatus validate(
@@ -46,6 +50,14 @@ class MovieEditPageController extends _$MovieEditPageController {
     if (state.value == null) return;
     state = AsyncValue.data(state.value!.copyWith(
         yearFormz: yearFormz, status: validate(yearFormz: yearFormz)));
+  }
+
+  void updateCountry(Country? value) {
+    if (state.value == null || value == null) return;
+    EditMovieState stateValue = state.value!;
+    stateValue.movie.country.target = value;
+
+    state = AsyncValue.data(stateValue.copyWith(selectedCountry: value));
   }
 
   Future<void> submit() async {

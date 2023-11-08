@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movies_objbox_riverpod/domain/models/country.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditpagecontroller.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditstate.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesnotifier.dart';
@@ -19,7 +20,6 @@ class MovieEditPage extends ConsumerWidget {
         locator();
     final AsyncValue<EditMovieState> state =
         ref.watch(movieEditPageControllerProvider(id));
-
     return Scaffold(
         appBar: AppBar(title: const Text('Edit Movie')),
         body: (state.isLoading || !state.hasValue)
@@ -50,6 +50,17 @@ class MovieEditPage extends ConsumerWidget {
                       validator: (value) =>
                           state.value?.yearFormz.error?.getMessage(),
                     ),
+                    DropdownButton<Country>(
+                        value: state.value!.selectedCountry,
+                        items: state.value!.countries.map((countryItem) {
+                          return DropdownMenuItem<Country>(
+                            value: countryItem,
+                            child: Text(countryItem.name),
+                          );
+                        }).toList(),
+                        onChanged: (value) => ref
+                            .read(movieEditPageControllerProvider(id).notifier)
+                            .updateCountry(value)),
                     FormButton(
                       'Save',
                       enabled:
