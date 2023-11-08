@@ -50,3 +50,7 @@ class MoviesNotifier extends StateNotifier<MoviesState>
     return nextPageKey;
   }
 }
+
+final StateNotifierProvider<MoviesNotifier, MoviesState> moviesStateProvider =
+    StateNotifierProvider<MoviesNotifier, MoviesState>((_) => MoviesNotifier());
+    

@@ -6,7 +6,6 @@ import 'package:movies_objbox_riverpod/domain/models/country.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditpagecontroller.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movieedit/movieeditstate.dart';
 import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesnotifier.dart';
-import 'package:movies_objbox_riverpod/presentation/controllers/movies/moviesstate.dart';
 import 'package:movies_objbox_riverpod/presentation/widgets/formbutton.dart';
 import 'package:movies_objbox_riverpod/presentation/widgets/formtextfield.dart';
 import 'package:movies_objbox_riverpod/utils/dependencyinjection.dart';
@@ -16,8 +15,6 @@ class MovieEditPage extends ConsumerWidget {
   final int id;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final StateNotifierProvider<MoviesNotifier, MoviesState> moviesController =
-        locator();
     final AsyncValue<EditMovieState> state =
         ref.watch(movieEditPageControllerProvider(id));
     return Scaffold(
@@ -75,7 +72,7 @@ class MovieEditPage extends ConsumerWidget {
                         await ref
                             .read(movieEditPageControllerProvider(id).notifier)
                             .submit();
-                        await ref.read(moviesController.notifier).refresh();
+                        await ref.read(moviesStateProvider.notifier).refresh();
                         // ignore: unused_local_variable
                         GoRouter router = locator()..go("/");
                       },
@@ -87,7 +84,7 @@ class MovieEditPage extends ConsumerWidget {
                         await ref
                             .read(movieEditPageControllerProvider(id).notifier)
                             .delete();
-                        await ref.read(moviesController.notifier).refresh();
+                        await ref.read(moviesStateProvider.notifier).refresh();
                         // ignore: unused_local_variable
                         GoRouter router = locator()..go("/");
                       },
