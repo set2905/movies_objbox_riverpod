@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:faker/faker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movies_objbox_riverpod/constants/strings.dart';
 import 'package:movies_objbox_riverpod/domain/models/country.dart';
@@ -34,6 +35,7 @@ class ObjectBoxDb implements Disposable {
     final dbPath = path.join(appDir.path, "MoviesObjectBox");
     final store = await openStore(directory: dbPath);
     await tryInitCountries(store);
+    await tryInitMovies(store);
     return store;
   }
 
@@ -42,6 +44,21 @@ class ObjectBoxDb implements Disposable {
     if (countryBox.count() != 0) return;
     await countryBox.putManyAsync(List<Country>.from(
         Strings.defaultCountryNames.map((e) => Country()..name = e)));
+  }
+
+  Future<void> tryInitMovies(Store store) async {
+    if (store.box<Movie>().count() != 0) return;
+    await store.box<Movie>().removeAllAsync();
+    var box = store.box<Movie>();
+    var countries = await store.box<Country>().getAllAsync();
+    var faker = Faker();
+    await box.putManyAsync(List<Movie>.generate(
+        5000,
+        (index) => Movie()
+          ..name = faker.lorem.word()
+          ..year = random.integer(2050, min: 1896)
+          ..country.target =
+              countries[random.integer(countries.length, min: 0)]));
   }
 
   @override

@@ -46,7 +46,7 @@ class MoviesNotifier extends StateNotifier<MoviesState>
     int currentRecordsLength =
         state.records == null ? 0 : state.records!.length;
     int? nextPageKey =
-        loadedLength < limit ? null : (currentRecordsLength ~/ limit) + 1;
+        loadedLength < limit ? null : (currentRecordsLength ~/ limit) + 2;
     return nextPageKey;
   }
 }
